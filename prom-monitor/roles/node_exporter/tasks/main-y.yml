@@ -1,8 +1,0 @@
-- name: Create node_exporter DaemonSet
-  copy:
-    src: monitor-daemonset.yaml
-    dest: "{{ kube_yaml_path }}/monitor-daemonset.yaml"
-    mode: 0644
-
-- name: Exec kubectl apply for node_exporter daemonset
-  shell: "kubectl apply -f {{ kube_yaml_path }}/monitor-daemonset.yaml"

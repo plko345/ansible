@@ -1,0 +1,30 @@
+- name: "Create {{ work_path }}"
+  file:
+    state: directory
+    dest: "{{ work_path }}"
+
+- name: "Install {{ target_name }}"
+  copy:
+    src: "{{ target_name }}-{{ target_version }}"
+    dest: "{{ work_path }}"
+    mode: 0755
+
+- name: "Create {{ target_name }}.service"
+  template:
+    src: "{{ target_name }}.service"
+    dest: "{{ systemd_path }}/{{ target_name }}.service"
+    mode: 0644
+
+- name: "Create {{ target_name }} Link"
+  file:
+    state: link
+    dest: "{{ work_path }}/{{ target_name }}"
+    src: "{{ work_path }}/{{ target_name }}-{{ target_version }}"
+
+- name: "Start {{ target_name }}.service"
+  systemd:
+    daemon_reload: yes
+    enabled: yes
+    name: "{{ target_name }}.service"
+    state: started
+

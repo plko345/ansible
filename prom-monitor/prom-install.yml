@@ -1,0 +1,4 @@
+- hosts: node-exporter
+  remote_user: root
+  roles:
+    - prom_install

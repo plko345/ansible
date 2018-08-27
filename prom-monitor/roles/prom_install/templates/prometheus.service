@@ -1,0 +1,12 @@
+[Unit]
+Description=Prometheus Server
+Documentation=https://prometheus.io/docs/introduction/overview/
+After=network-online.target
+
+[Service]
+ExecStart={{ work_path }}/prometheus/prometheus --config.file="{{ work_path }}/prometheus/prometheus.yml"
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
