@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kube-state-metrics
+  namespace: monitor
+spec:
+  rules:
+  - host: {{ ksm_domain }}
+    http:
+      paths:
+      - path:
+        backend:
+          serviceName: kube-state-metrics
+          servicePort: 8080
+      - path: /telemetry
+        backend:
+          serviceName: kube-state-metrics
+          servicePort: 8081

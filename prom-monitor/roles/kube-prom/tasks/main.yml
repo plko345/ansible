@@ -1,0 +1,21 @@
+- name: "Create all YAML files: rbac,configmap,deployment,service"
+  template:
+    src: "{{ item }}"
+    dest: "{{ kube_yaml_path }}"
+    mode: 0644
+  with_items:
+    - monitor-deployment.yaml
+    - monitor-prometheus-configmap.yaml
+    - monitor-prometheus-service.yaml
+    - monitor-rbac-setup.yaml
+    - monitor-prometheus-ingress.yaml
+
+- name: Exec kubectl apply for kube-prom
+  shell: "kubectl apply -f {{ kube_yaml_path }}/{{ item }}"
+  with_items:
+    - monitor-rbac-setup.yaml
+    - monitor-promtheus-configmap.yaml
+    - monitor-deployment.yaml
+    - monitor-promtheus-service.yaml
+    - monitor-prometheus-ingress.yaml
+

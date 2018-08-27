@@ -1,0 +1,14 @@
+- name: "mkdir {{ kube_yaml_path }}"
+  file:
+    path: "{{ kube_yaml_path }}"
+    state: directory
+    mode: 0755
+
+- name: Copy namespace.yml
+  copy:
+    src: monitor-namespace.yaml
+    dest: "{{ kube_yaml_path }}/monitor-namespace.yaml"
+    mode: 0644
+
+- name: Exec kubectl apply for namespace.yaml
+  shell: "kubectl apply -f {{ kube_yaml_path }}/monitor-namespace.yaml"

@@ -1,0 +1,15 @@
+- name: Create kube-state-metrics
+  copy:
+    src: kubernetes
+    dest: "{{ kube_yaml_path }}"
+    mode: 0644
+
+- name: Create kube-state-metrics's ingress
+  template:
+    src: kube-state-metrics-ingress.yaml
+    dest: "{{ kube_yaml_path }}/kubernetes/kube-state-metrics-ingress.yaml"
+    mode: 0644
+
+- name: Exec kubectl apply for kube-state-metrics
+  shell: "kubectl apply -f {{ kube_yaml_path }}/kubernetes"
+

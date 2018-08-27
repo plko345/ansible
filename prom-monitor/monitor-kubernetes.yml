@@ -1,0 +1,6 @@
+- hosts: kube-master
+  remote_user: root
+  roles:
+    - namespace
+    - kube-state-metrics
+    - kube-prom
