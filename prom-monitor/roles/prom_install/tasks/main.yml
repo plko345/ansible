@@ -9,6 +9,12 @@
     dest: "{{ work_path }}"
     mode: 0755
 
+- name: "Create prometheus.yml"
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ work_path }}/{{ target_name }}-{{ target_version }}/prometheus.yml"
+  when: target_name == 'prometheus'
+
 - name: "Create {{ target_name }}.service"
   template:
     src: "{{ target_name }}.service"
