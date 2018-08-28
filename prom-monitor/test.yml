@@ -1,9 +1,0 @@
-- hosts: all1
-  remote_user: root
-  tasks:
-  - name: ping
-    ping:
-  - name: "test"
-    template:
-      src: /home/mh/Documents/plko345/ansible/prom-monitor/prometheus.yml.j2
-      dest: /root/prometheus.yml
